@@ -132,6 +132,9 @@ Interactive analytics dashboard built on prediction data exported from PostgreSQ
 
 👉 **1.[Download .pbix](./dashboard/Fake%20Review%20Dashboard.pbix)
 
+<img width="1023" height="632" alt="image" src="https://github.com/user-attachments/assets/f27bf5de-3252-4d79-b1fb-b89a2f4a469d" />
+
+
 **To open:** Download the `.pbix` file and open in Power BI Desktop.
 
 **Visuals included:**
