@@ -36,7 +36,7 @@ E-commerce platforms lose billions due to fake reviews that mislead buyers. Revi
 | ⚡ Backend API (Render) | https://fake-review-detector-0m6b.onrender.com |
 | 📖 API Docs (Swagger) | https://fake-review-detector-0m6b.onrender.com/docs |
 | 📓 EDA Notebook | [notebooks/fake_review_detector_EDA.ipynb](./notebooks/fake_review_detector_EDA.ipynb) |
-| 📊 Power BI Dashboard | [dashboard/Fake Review Dashboard.pbix](dashboard/Fake Review Dashboard.pbix) |
+| 📊 Power BI Dashboard | [dashboard/Fake Review Dashboard.pbix](./dashboard/Fake Review Dashboard.pbix) |
 
 > ⚠️ Note: Backend is on Render free tier — first load may take 30–60 seconds to wake up.
 
