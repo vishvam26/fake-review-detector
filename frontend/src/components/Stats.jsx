@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import API_URL from "./config"
+import API_URL from "../config"
 
 function Stats() {
   const [stats, setStats] = useState(null)
