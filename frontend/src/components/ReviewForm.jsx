@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import API_URL from "../config"
 
 export default function ReviewForm({ setResult, setLoading }) {
   const [text, setText] = useState("")
@@ -9,7 +10,7 @@ export default function ReviewForm({ setResult, setLoading }) {
     if (!text.trim()) return
     setLoading(true); setResult(null)
     try {
-      const res = await axios.post("http://localhost:8000/predict", { text, score: parseInt(score) })
+      const res = await axios.post(`${API_URL}/predict`, { text, score: parseInt(score) })
       setResult(res.data)
     } catch { alert("Backend running chhe?") }
     setLoading(false)

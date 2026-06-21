@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import API_URL from "../config"
 
 function Stats() {
   const [stats, setStats] = useState(null)
 
   useEffect(() => {
-    axios.get("http://localhost:8000/stats").then(res => setStats(res.data))
+    axios.get(`${API_URL}/stats`)
   }, [])
 
   if (!stats) return <div className="card"><p style={{color:'rgba(255,255,255,0.5)'}}>Loading stats...</p></div>

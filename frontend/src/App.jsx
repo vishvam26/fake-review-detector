@@ -4,6 +4,7 @@ import ResultCard from "./components/ResultCard"
 import History from "./components/History"
 import Stats from "./components/Stats"
 import "./App.css"
+import API_URL from "../config"
 
 
 export default function App() {
@@ -143,7 +144,7 @@ function CsvUpload() {
     formData.append("file", file)
 
     try {
-      const res = await fetch("http://localhost:8000/predict/bulk", {
+      const res = await fetch(`${API_URL}/predict/bulk`, {
         method: "POST",
         body: formData
       })
@@ -243,7 +244,7 @@ function CsvUpload() {
 function RecentHistory() {
   const [items, setItems] = useState([])
   useEffect(() => {
-    fetch("http://localhost:8000/history")
+    fetch(`${API_URL}/history`)
       .then(r => r.json()).then(d => setItems(d.slice(0, 4)))
       .catch(() => { })
   }, [])
