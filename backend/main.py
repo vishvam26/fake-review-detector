@@ -21,7 +21,7 @@ app = FastAPI(title="Fake Review Detector API")
 # CORS — React frontend sathe connect thavase
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
