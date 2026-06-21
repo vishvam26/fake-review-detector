@@ -1,0 +1,44 @@
+id,review_text,score,label,confidence,created_at,text_length,exclamation_count
+43,BEST PRODUCT EVER!!!! LOVE LOVE LOVE!!!!! MUST BUY!!!!! INCREDIBLE!!!!!,5,Fake,92.61,2026-06-19 14:52:13,71,19
+42,Good product although the delivery took longer than expected. Quality is decent compared to other brands I have tried.,5,Genuine,70.84,2026-06-19 14:52:03,118,0
+41,Good product although the delivery took longer than expected. Quality is decent compared to other brands I have tried.,5,Genuine,70.84,2026-06-19 14:52:02,118,0
+40,Good product although the delivery took longer than expected. Quality is decent compared to other brands I have tried.,3,Genuine,70.84,2026-06-19 14:51:50,118,0
+39,Worst purchase ever. Broke after 2 days of use. Very disappointed with the build quality.,1,Genuine,96.87,2026-06-19 14:51:35,89,0
+38,Good product although the delivery took longer than expected.,5,Genuine,79.57,2026-06-19 14:49:44,61,0
+37,BEST PRODUCT EVER!!!! LOVE LOVE LOVE!!!!!,5,Fake,78.54,2026-06-19 14:49:25,41,9
+36,Worst purchase ever. Broke after 2 days.,5,Genuine,96.87,2026-06-19 14:48:51,40,0
+35,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,3,Genuine,69.42,2026-06-19 14:48:19,181,0
+34,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Genuine,69.42,2026-06-19 14:48:16,181,0
+33,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,5,Genuine,69.42,2026-06-19 14:48:09,181,0
+32,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Fake,88.42,2026-06-19 14:48:01,121,14
+31,"I purchased this coffee maker three weeks ago. Brews well, easy cleanup.",4,Genuine,70.48,2026-06-19 14:47:36,72,0
+30,This is AMAZING!!! BUY NOW!!!! INCREDIBLE!!!,5,Fake,84.55,2026-06-19 14:47:20,44,10
+29,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,97.51,2026-06-19 14:38:18,121,14
+28,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,2,Genuine,97.51,2026-06-19 14:38:11,121,14
+27,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,97.51,2026-06-19 14:38:09,121,14
+26,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,97.51,2026-06-19 14:37:45,121,14
+25,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Genuine,96.97,2026-06-19 14:37:32,181,0
+24,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,98.15,2026-06-19 14:26:19,121,14
+23,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,98.15,2026-06-19 14:26:10,121,14
+22,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,98.15,2026-06-19 14:26:04,121,14
+21,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Genuine,98.15,2026-06-19 14:26:03,121,14
+20,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Genuine,97.6,2026-06-19 14:25:49,181,0
+19,Model ni accuracy labeling strategy par depend kare chhe — real world ma human-labeled data use karvaanu hoy. Aa ek known limitation chhe jo better dataset thi solve thai shake chhe.,3,Fake,74.75,2026-06-19 13:49:19,182,0
+18,Model ni accuracy labeling strategy par depend kare chhe — real world ma human-labeled data use karvaanu hoy. Aa ek known limitation chhe jo better dataset thi solve thai shake chhe.,4,Fake,74.75,2026-06-19 13:49:14,182,0
+17,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:59,181,0
+16,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,2,Fake,73.02,2026-06-19 13:45:48,181,0
+15,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,3,Fake,73.02,2026-06-19 13:45:46,181,0
+14,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,3,Fake,73.02,2026-06-19 13:45:45,181,0
+13,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,5,Fake,73.02,2026-06-19 13:45:41,181,0
+12,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:36,181,0
+11,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:36,181,0
+10,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:34,181,0
+9,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:34,181,0
+8,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:33,181,0
+7,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:31,181,0
+6,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:30,181,0
+5,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:29,181,0
+4,I purchased this coffee maker three weeks ago. It brews consistently well and the temperature is just right. Setup was straightforward and cleanup is easy. Good value for the price.,4,Fake,73.02,2026-06-19 13:45:28,181,0
+3,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Fake,91.41,2026-06-19 13:45:11,121,14
+2,This product is absolutely AMAZING!!! Best purchase of my life!!!! Everyone should buy this NOW!!!! INCREDIBLE QUALITY!!!,5,Fake,91.41,2026-06-19 13:45:08,121,14
+1,This product is absolutely amazing!!! Best purchase ever!!!! BUY NOW!!!,5,Fake,91.82,2026-06-18 18:33:41,71,10
