@@ -4,7 +4,7 @@ import ResultCard from "./components/ResultCard"
 import History from "./components/History"
 import Stats from "./components/Stats"
 import "./App.css"
-import API_URL from "../config"
+import API_URL from "./config"
 
 
 export default function App() {
