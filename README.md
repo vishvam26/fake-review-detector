@@ -112,7 +112,7 @@ Serialized (.pkl) → Served via FastAPI
 
 Full exploratory data analysis, feature engineering, and model training:
 
-👉 **[fake_review_detector_EDA.ipynb](./notebooks/fake_review_detector_EDA.ipynb)**
+👉 **[fake_review_detector_EDA.ipynb](./notebook/fake_review_detector_EDA.ipynb)**
 
 **Notebook includes:**
 - Data loading & cleaning (568K reviews)
