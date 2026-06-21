@@ -36,7 +36,7 @@ E-commerce platforms lose billions due to fake reviews that mislead buyers. Revi
 | ⚡ Backend API (Render) | https://fake-review-detector-0m6b.onrender.com |
 | 📖 API Docs (Swagger) | https://fake-review-detector-0m6b.onrender.com/docs |
 | 📓 EDA Notebook | [notebooks/fake_review_detector_EDA.ipynb](./notebooks/fake_review_detector_EDA.ipynb) |
-| 📊 Power BI Dashboard | [dashboard/Fake Review Dashboard.pbix](./dashboard/Fake Review Dashboard.pbix) |
+| 📊 Power BI Dashboard | [View Dashboard Screenshots](#-power-bi-dashboard) | |
 
 > ⚠️ Note: Backend is on Render free tier — first load may take 30–60 seconds to wake up.
 
@@ -130,7 +130,7 @@ Full exploratory data analysis, feature engineering, and model training:
 
 Interactive analytics dashboard built on prediction data exported from PostgreSQL/SQLite.
 
-👉 **[Download Fake_Review_Dashboard.pbix](./dashboard/Fake Review Dashboard.pbix)**
+👉 **1. Download [Fake_Review_Dashboard.pbix](./dashboard/Fake_Review_Dashboard.pbix)
 
 **To open:** Download the `.pbix` file and open in Power BI Desktop.
 
