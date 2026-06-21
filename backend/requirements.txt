@@ -8,3 +8,5 @@ nltk
 scipy
 numpy
 python-multipart
+psycopg2-binary
+sqlalchemy
