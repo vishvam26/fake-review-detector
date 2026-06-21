@@ -89,12 +89,24 @@ def predict(req: ReviewRequest):
 
 @app.get("/history")
 def history():
-    return get_history()
+    try:
+        return get_history()
+    except:
+        return []
 
-@app.get("/stats")
+@app.get("/stats")  
 def stats():
-    from database import get_stats
-    return get_stats()
+    try:
+        from database import get_stats
+        return get_stats()
+    except:
+        return {
+            "total_analyzed": 0,
+            "fake_detected": 0,
+            "genuine_detected": 0,
+            "avg_confidence": 0,
+            "fake_percentage": 0
+        }
 
 # Existing imports ni niche aa add karo
 import csv
