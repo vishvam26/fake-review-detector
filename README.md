@@ -130,7 +130,7 @@ Full exploratory data analysis, feature engineering, and model training:
 
 Interactive analytics dashboard built on prediction data exported from PostgreSQL/SQLite.
 
-👉 **[Download Fake_Review_Dashboard.pbix](./dashboard/Fake_Review_Dashboard.pbix)**
+👉 **[Download Fake_Review_Dashboard.pbix](./dashboard/Fake Review Dashboard.pbix)**
 
 **To open:** Download the `.pbix` file and open in Power BI Desktop.
 
