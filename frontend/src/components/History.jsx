@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import API_URL from "../config"
-
+import API_URL from "./config"
 
 function History() {
   const [history, setHistory] = useState([])
 
   useEffect(() => {
     axios.get(`${API_URL}/history`)
+      .then(res => setHistory(res.data))
+      .catch(err => console.error(err))
   }, [])
 
   return (

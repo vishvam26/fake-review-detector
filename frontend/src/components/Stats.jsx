@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import API_URL from "../config"
+import API_URL from "./config"
 
 function Stats() {
   const [stats, setStats] = useState(null)
 
   useEffect(() => {
     axios.get(`${API_URL}/stats`)
+      .then(res => setStats(res.data))
+      .catch(err => console.error(err))
   }, [])
 
-  if (!stats) return <div className="card"><p style={{color:'rgba(255,255,255,0.5)'}}>Loading stats...</p></div>
+  if (!stats) return (
+    <div className="card">
+      <p style={{color:'var(--text-secondary)'}}>Loading stats...</p>
+    </div>
+  )
 
   return (
     <div className="card">
