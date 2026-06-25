@@ -16,6 +16,9 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from database import save_prediction, get_history
+from dotenv import load_dotenv
+
+load_dotenv()
 
 nltk.download("stopwords", quiet=True)
 nltk.download("wordnet", quiet=True)
@@ -37,9 +40,7 @@ scaler = joblib.load("scaler.pkl")
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words("english"))
 
-SERPAPI_KEY = os.environ.get(
-    "SERPAPI_KEY", "69c3680f7ebbc5751024342b4ed48ead3a4661f0bb3a16328c292bae625a4a5e"
-)
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
 
 
 class ReviewRequest(BaseModel):
