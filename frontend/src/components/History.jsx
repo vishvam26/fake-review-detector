@@ -13,22 +13,44 @@ function History() {
 
   return (
     <div className="card">
-      <h2>Recent Analyses</h2>
-      {history.length === 0 && <p className="empty">No history yet — analyze a review first!</p>}
-      <div className="history-list">
-        {history.map(item => (
-          <div key={item.id} className={`history-item ${item.label === "Fake" ? "fake-item" : "genuine-item"}`}>
-            <div className="history-top">
-              <span className={`badge ${item.label === "Fake" ? "badge-fake" : "badge-genuine"}`}>
-                {item.label}
-              </span>
-              <span className="history-conf">{item.confidence}% confidence</span>
-              <span className="history-date">{item.created_at}</span>
-            </div>
-            <p className="history-text">{item.text}</p>
-          </div>
-        ))}
+      <div className="url-reviews-header">
+        <h2>Past Analysis Results</h2>
       </div>
+      {history.length === 0 ? (
+        <p className="empty">No analysis history yet. Go to the Detector tab to evaluate a review.</p>
+      ) : (
+        <div className="history-list">
+          {history.map(item => {
+            const isFake = item.label === "Fake"
+            return (
+              <div key={item.id} className={`history-item-row ${isFake ? "fake" : "genuine"}`}>
+                <div className="history-item-icon-col">
+                  {isFake ? (
+                    <span className="history-icon-wrapper bot">
+                      <i className="ti ti-alert-triangle" />
+                    </span>
+                  ) : (
+                    <span className="history-icon-wrapper real">
+                      <i className="ti ti-circle-check" />
+                    </span>
+                  )}
+                </div>
+                <div className="history-item-content-col">
+                  <p className="history-item-text">"{item.text}"</p>
+                  <span className="history-item-subtext">
+                    Rating: {item.score}★ · Analyzed on {new Date(item.created_at).toLocaleString()}
+                  </span>
+                </div>
+                <div className="history-item-score-col">
+                  <span className={`history-score-val ${isFake ? "bot" : "real"}`}>
+                    {item.confidence}% {isFake ? "Bot" : "Real"}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
