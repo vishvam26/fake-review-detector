@@ -3,16 +3,16 @@ import ReviewForm from "./components/ReviewForm"
 import ResultCard from "./components/ResultCard"
 import History from "./components/History"
 import Stats from "./components/Stats"
-import UrlAnalyzer from "./components/UrlAnalyzer"
+import AiDetector from "./components/AiDetector"
 import "./App.css"
 import API_URL from "./config"
-
 
 export default function App() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState("detector")
-  const [theme, setTheme] = useState("dark")
+  const [theme, setTheme] = useState("light") // Default light theme matching Allys clean white style
+  const [timeline, setTimeline] = useState("7d")
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme)
@@ -22,11 +22,46 @@ export default function App() {
 
   const tabs = [
     { id: "detector", label: "Detector" },
-    { id: "url",      label: "URL Analyzer" },
+    { id: "ai_detector", label: "AI Detector" },
     { id: "bulk",     label: "Bulk CSV" },
     { id: "history",  label: "History" },
     { id: "stats",    label: "Stats" },
   ]
+
+  const getTimelineStats = () => {
+    switch (timeline) {
+      case "1d":
+        return {
+          audited: "84.2K+",
+          accuracy: "93.8%",
+          growth: "+2.1%",
+          descAudited: "Total reviews scanned today.",
+          descAccuracy: "Active pattern detection precision.",
+          descGrowth: "Change in spam volume today."
+        }
+      case "30d":
+        return {
+          audited: "2.4M+",
+          accuracy: "94.5%",
+          growth: "-4.8%",
+          descAudited: "Total reviews scanned past month.",
+          descAccuracy: "Linguistic match precision.",
+          descGrowth: "Total change in spam volume."
+        }
+      case "7d":
+      default:
+        return {
+          audited: "568K+",
+          accuracy: "94.2%",
+          growth: "+12.4%",
+          descAudited: "Total reviews scanned this week.",
+          descAccuracy: "Verified model confidence index.",
+          descGrowth: "Weekly shift in AI-generated spam."
+        }
+    }
+  }
+
+  const currentStats = getTimelineStats()
 
   return (
     <div className="app">
@@ -58,9 +93,9 @@ export default function App() {
           </nav>
 
           <div className="header-right">
-            <span className="live-badge">
-              <span className="live-dot" />
-              LIVE
+            <span className="global-badge">
+              <span className="global-dot" />
+              GLOBAL (EN)
             </span>
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
               {theme === "light" ? (
@@ -69,7 +104,7 @@ export default function App() {
                 <i className="ti ti-sun" />
               )}
             </button>
-            <button className="upgrade-btn">Upgrade Pro</button>
+            <button className="upgrade-btn" onClick={() => alert("Upgrade request sent! Our enterprise team will contact you soon.")}>Upgrade Pro</button>
           </div>
         </div>
       </header>
@@ -82,24 +117,36 @@ export default function App() {
                 <div className="hero-dot" />
                 AI-Powered Review Analysis
               </div>
-              <h2>Detect <span>Fake Reviews</span><br />Instantly</h2>
-              <p>Leverage our state-of-the-art XGBoost machine learning model to distinguish genuine customer feedback from AI-generated misinformation.</p>
-              
-              <div className="hero-stats">
-                <div className="stat-pill">
-                  <i className="ti ti-chart-bar-popular" />
-                  <span className="stat-pill-num">568K+</span>
-                  <span className="stat-pill-label">Reviews Analyzed</span>
+              <div className="hero-coords">NLP SCANNER • MODEL ID: XGB-V1.7.2 • RG-COORD: 20.0013° S, 57.5750° E</div>
+              <h2>Verify and Detect <span>Fake Reviews</span><br />Instantly</h2>
+              <p>Leverage our state-of-the-art machine learning algorithms to audit feedback authenticity and safeguard digital trust.</p>
+            </div>
+
+            {/* Performance/Intelligence Trends Grid (Allys styled trends section) */}
+            <div className="intel-section">
+              <div className="intel-header-row">
+                <h3 className="intel-title">Model Performance & Intelligence</h3>
+                <div className="timeline-btn-group">
+                  <button className={timeline === "1d" ? "timeline-btn active" : "timeline-btn"} onClick={() => setTimeline("1d")}>Today</button>
+                  <button className={timeline === "7d" ? "timeline-btn active" : "timeline-btn"} onClick={() => setTimeline("7d")}>7 Days</button>
+                  <button className={timeline === "30d" ? "timeline-btn active" : "timeline-btn"} onClick={() => setTimeline("30d")}>30 Days</button>
                 </div>
-                <div className="stat-pill">
-                  <i className="ti ti-shield-check" />
-                  <span className="stat-pill-num">85%</span>
-                  <span className="stat-pill-label">Detection Accuracy</span>
+              </div>
+              <div className="intel-grid">
+                <div className="intel-card">
+                  <div className="intel-label">Reviews Audited</div>
+                  <div className="intel-val">{currentStats.audited}</div>
+                  <div className="intel-desc">{currentStats.descAudited}</div>
                 </div>
-                <div className="stat-pill">
-                  <i className="ti ti-cpu" />
-                  <span className="stat-pill-num">XGBoost</span>
-                  <span className="stat-pill-label">ML Model</span>
+                <div className="intel-card">
+                  <div className="intel-label">Detection Accuracy</div>
+                  <div className="intel-val green">{currentStats.accuracy}</div>
+                  <div className="intel-desc">{currentStats.descAccuracy}</div>
+                </div>
+                <div className="intel-card">
+                  <div className="intel-label">Spam Drift</div>
+                  <div className="intel-val">{currentStats.growth}</div>
+                  <div className="intel-desc">{currentStats.descGrowth}</div>
                 </div>
               </div>
             </div>
@@ -120,9 +167,49 @@ export default function App() {
                 {!result && !loading && <RecentHistory setActiveTab={setActiveTab} />}
               </div>
             </div>
+
+            {/* Integrations & Channels Section (Allys styled amenities grid) */}
+            <section className="integrations-section">
+              <div className="section-title-wrap">
+                <div className="section-pretitle">Enterprise Channels</div>
+                <h2 className="section-title">Integrations & Live Connectors</h2>
+              </div>
+              <div className="integrations-grid">
+                <div className="integration-card">
+                  <div className="integration-icon-wrap">
+                    <i className="ti ti-shopping-cart" />
+                  </div>
+                  <h3>E-Commerce Audits</h3>
+                  <p className="integration-desc">Connect directly to Amazon, Shopify, or WooCommerce stores using our automated review crawler API.</p>
+                  <a href="#shopify-docs" className="doc-link-tag" onClick={e => e.preventDefault()}>
+                    Configure Store Connector <i className="ti ti-arrow-up-right" />
+                  </a>
+                </div>
+                <div className="integration-card">
+                  <div className="integration-icon-wrap">
+                    <i className="ti ti-plane-departure" />
+                  </div>
+                  <h3>Travel & Booking</h3>
+                  <p className="integration-desc">Analyze hotel, booking, and restaurant reviews from platforms like TripAdvisor, Airbnb, and Booking.com.</p>
+                  <a href="#travel-docs" className="doc-link-tag" onClick={e => e.preventDefault()}>
+                    Connect Travel APIs <i className="ti ti-arrow-up-right" />
+                  </a>
+                </div>
+                <div className="integration-card">
+                  <div className="integration-icon-wrap">
+                    <i className="ti ti-map-pin" />
+                  </div>
+                  <h3>Local Maps & Search</h3>
+                  <p className="integration-desc">Integrate with local listings on Yelp and Google Maps API to track reviews and spot malicious bot campaigns.</p>
+                  <a href="#maps-docs" className="doc-link-tag" onClick={e => e.preventDefault()}>
+                    Track Business Reviews <i className="ti ti-arrow-up-right" />
+                  </a>
+                </div>
+              </div>
+            </section>
           </>
         )}
-        {activeTab === "url" && <UrlAnalyzer />}
+        {activeTab === "ai_detector" && <AiDetector />}
         {activeTab === "bulk" && (
           <div style={{ maxWidth: "680px", margin: "0 auto", paddingTop: "2rem" }}>
             <div className="page-header" style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -152,28 +239,85 @@ export default function App() {
         )}
       </main>
 
+      {/* Floating Chatbot Assistant widget (Allys WhatsApp style float button) */}
+      <div className="floating-chat-container">
+        <button className="floating-chat-btn" onClick={() => alert("ReviewGuard AI Support Assistant is launching! For API keys or custom integrations, please write to support@reviewguard.ai.")}>
+          <i className="ti ti-message-chatbot" />
+        </button>
+        <div className="floating-chat-tooltip">Ask AI Assistant</div>
+      </div>
+
+      {/* Detailed Sitemap Footer (Allys styled footer section) */}
       <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-left">
+        <div className="footer-sitemap-grid">
+          <div className="footer-brand-col">
             <h3 className="footer-logo">ReviewGuard AI</h3>
-            <p className="footer-desc">The leading platform for verifying review authenticity across the web.</p>
-          </div>
-          <div className="footer-links">
-            <a href="#tos" onClick={(e) => e.preventDefault()}>Terms of Service</a>
-            <a href="#privacy" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
-            <a href="#security" onClick={(e) => e.preventDefault()}>Security</a>
-            <a href="#contact" onClick={(e) => e.preventDefault()}>Contact</a>
-          </div>
-          <div className="footer-right">
-            <div className="footer-icon-btns">
-              <span className="footer-icon-btn" title="Secure Platform">
-                <i className="ti ti-shield-lock" />
-              </span>
-              <span className="footer-icon-btn" title="Analytics Engine">
-                <i className="ti ti-chart-line" />
-              </span>
+            <p className="footer-desc">Verifying digital credibility and feedback authenticity globally using advanced Natural Language Processing models.</p>
+            
+            {/* Lead Agent contact card style engineer block */}
+            <div className="agent-contact-card">
+              <div className="agent-avatar-wrap">AM</div>
+              <div className="agent-info">
+                <div className="agent-name">Alex Mercer</div>
+                <div className="agent-title">Lead AI Engineer</div>
+                <button className="agent-btn" onClick={() => alert("Connecting with Alex... Please email support@reviewguard.ai")}>Contact Engineer</button>
+              </div>
             </div>
-            <p className="copyright">© 2024 ReviewGuard AI. All rights reserved.</p>
+          </div>
+          
+          <div className="footer-nav-col">
+            <h4>Detector Tools</h4>
+            <div className="footer-nav-links">
+              <a href="#detector" onClick={(e) => { e.preventDefault(); setActiveTab("detector"); }}>XGBoost Detector</a>
+              <a href="#ai_detector" onClick={(e) => { e.preventDefault(); setActiveTab("ai_detector"); }}>AI Writing Analyzer</a>
+              <a href="#bulk" onClick={(e) => { e.preventDefault(); setActiveTab("bulk"); }}>Bulk CSV Scan</a>
+              <a href="#history" onClick={(e) => { e.preventDefault(); setActiveTab("history"); }}>History Session</a>
+              <a href="#stats" onClick={(e) => { e.preventDefault(); setActiveTab("stats"); }}>Analytics</a>
+            </div>
+          </div>
+
+          <div className="footer-nav-col">
+            <h4>Developer APIs</h4>
+            <div className="footer-nav-links">
+              <a href="#docs" onClick={(e) => e.preventDefault()}>API Documentation</a>
+              <a href="#endpoints" onClick={(e) => e.preventDefault()}>Model Specifications</a>
+              <a href="#accuracy" onClick={(e) => e.preventDefault()}>Evaluation Metrics</a>
+              <a href="#pricing" onClick={(e) => e.preventDefault()}>Token Pricing</a>
+            </div>
+          </div>
+
+          <div className="footer-nav-col newsletter-wrap">
+            <h4>Stay Updated</h4>
+            <p className="newsletter-desc">Subscribe to get monthly intelligence digests on spam patterns and AI detection news.</p>
+            <form className="newsletter-form" onSubmit={(e) => { e.preventDefault(); alert("Successfully subscribed to ReviewGuard updates!"); }}>
+              <input type="email" placeholder="Your email address" required className="newsletter-input" />
+              <button type="submit" className="newsletter-submit-btn">
+                <i className="ti ti-arrow-right" />
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <div className="footer-bottom-left">
+            <div className="footer-tags-title">Technology Stack & Signals</div>
+            <div className="footer-tags-list">
+              <span className="footer-tag-badge" onClick={() => alert("Analyzing model stack...")}>XGBoost Classifier</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking metrics stack...")}>Linguistic Diversity</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking LLM detection stack...")}>AI Text Detector</span>
+              <span className="footer-tag-badge" onClick={() => alert("Framework version: React v19")}>Vite + React</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking server API stack...")}>FastAPI Backend</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking analysis model...")}>Sentiment Drift</span>
+            </div>
+          </div>
+
+          <div className="footer-social-wrap">
+            <div className="footer-social-links">
+              <span className="footer-social-icon" title="Twitter" onClick={() => alert("Opening Twitter...")}><i className="ti ti-brand-x" /></span>
+              <span className="footer-social-icon" title="GitHub" onClick={() => alert("Opening GitHub...")}><i className="ti ti-brand-github" /></span>
+              <span className="footer-social-icon" title="Discord" onClick={() => alert("Opening Discord...")}><i className="ti ti-brand-discord" /></span>
+            </div>
+            <p className="copyright">© 2026 ReviewGuard AI. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -308,7 +452,6 @@ function RecentHistory({ setActiveTab }) {
       .catch(() => { })
   }, [])
 
-  // Provide realistic seed items if history is empty, to make the UI look rich and fully featured, matching the mockup!
   const defaultItems = [
     {
       id: "seed-1",

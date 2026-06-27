@@ -3,70 +3,74 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Default Theme: Premium Dark Mode */
-  --bg: #090616;
-  --bg-card: rgba(14, 11, 26, 0.65);
-  --bg-card-border: rgba(255, 255, 255, 0.07);
-  --bg-input: rgba(18, 14, 34, 0.85);
-  --bg-nav: rgba(9, 6, 22, 0.7);
-  --bg-hero-tag: rgba(139, 92, 246, 0.1);
-  --bg-tab: rgba(255, 255, 255, 0.03);
-  --bg-tab-active: rgba(139, 92, 246, 0.15);
-  --bg-stat-pill: rgba(255, 255, 255, 0.03);
+  /* Allys Inspired Theme: Light Mode is Clean & Bright */
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-border: #e5e7eb;
+  --bg-input: #f9fafb;
+  --bg-nav: rgba(255, 255, 255, 0.85);
+  --bg-hero-tag: rgba(36, 52, 98, 0.05);
+  --bg-tab: #f3f4f6;
+  --bg-tab-active: #243462;
+  --bg-stat-pill: #f9fafb;
   
-  --text-primary: #f1f0f7;
-  --text-secondary: #b8b3d0;
-  --text-muted: #8b85a6;
-  --text-label: #a29cb8;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-label: #374151;
   
-  --accent: #8b5cf6;
-  --accent-light: #a78bfa;
-  --accent2: #3b82f6;
-  --border-accent: rgba(139, 92, 246, 0.2);
-  --border-card: rgba(255, 255, 255, 0.06);
+  --accent: #243462;       /* Allys Navy Blue */
+  --accent-light: #3b82f6; /* Electric Blue highlight */
+  --accent2: #0D5C35;      /* Allys Accent Green */
+  --accent-success: #10b981;
+  --accent-warning: #f59e0b;
+  --accent-error: #ef4444;
+  --border-accent: rgba(36, 52, 98, 0.15);
+  --border-card: #e5e7eb;
   
-  --orb1: rgba(124, 58, 237, 0.25);
-  --orb2: rgba(59, 130, 246, 0.25);
-  --orb3: rgba(236, 72, 153, 0.2);
+  --orb1: rgba(36, 52, 98, 0.06);
+  --orb2: rgba(13, 92, 53, 0.05);
+  --orb3: rgba(59, 130, 246, 0.04);
   
-  --nav-border: rgba(255, 255, 255, 0.06);
-  --shadow-card: rgba(0, 0, 0, 0.4);
-  --history-bg: rgba(255, 255, 255, 0.02);
-  --csv-border: rgba(139, 92, 246, 0.2);
-  --csv-bg: rgba(139, 92, 246, 0.03);
+  --nav-border: #f3f4f6;
+  --shadow-card: rgba(0, 0, 0, 0.04);
+  --history-bg: #f9fafb;
+  --csv-border: rgba(36, 52, 98, 0.15);
+  --csv-bg: rgba(36, 52, 98, 0.02);
 }
 
-[data-theme="light"] {
-  --bg: #f5f4fa;
-  --bg-card: rgba(255, 255, 255, 0.75);
-  --bg-card-border: rgba(99, 102, 241, 0.08);
-  --bg-input: rgba(255, 255, 255, 0.9);
-  --bg-nav: rgba(245, 244, 250, 0.8);
-  --bg-hero-tag: rgba(124, 58, 237, 0.08);
-  --bg-tab: rgba(124, 58, 237, 0.05);
-  --bg-tab-active: rgba(255, 255, 255, 0.95);
-  --bg-stat-pill: rgba(255, 255, 255, 0.85);
+[data-theme="dark"] {
+  /* Allys Inspired Theme: Dark Mode is Slate Navy */
+  --bg: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-border: #1e293b;
+  --bg-input: #0f172a;
+  --bg-nav: rgba(11, 17, 32, 0.85);
+  --bg-hero-tag: rgba(59, 130, 246, 0.1);
+  --bg-tab: #1e293b;
+  --bg-tab-active: #3b82f6;
+  --bg-stat-pill: #151f32;
   
-  --text-primary: #100e23;
-  --text-secondary: #5a5575;
-  --text-muted: #8b86a3;
-  --text-label: #6b6684;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-label: #e2e8f0;
   
-  --accent: #6d28d9;
-  --accent-light: #7c3aed;
-  --accent2: #2563eb;
-  --border-accent: rgba(124, 58, 237, 0.15);
-  --border-card: rgba(124, 58, 237, 0.08);
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --accent2: #10b981;
+  --border-accent: rgba(59, 130, 246, 0.2);
+  --border-card: #1e293b;
   
-  --orb1: rgba(196, 181, 253, 0.4);
-  --orb2: rgba(147, 197, 253, 0.4);
-  --orb3: rgba(249, 168, 212, 0.3);
+  --orb1: rgba(59, 130, 246, 0.12);
+  --orb2: rgba(16, 185, 129, 0.08);
+  --orb3: rgba(99, 102, 241, 0.08);
   
-  --nav-border: rgba(124, 58, 237, 0.08);
-  --shadow-card: rgba(99, 102, 241, 0.05);
-  --history-bg: rgba(255, 255, 255, 0.6);
-  --csv-border: rgba(124, 58, 237, 0.15);
-  --csv-bg: rgba(124, 58, 237, 0.03);
+  --nav-border: #1e293b;
+  --shadow-card: rgba(0, 0, 0, 0.3);
+  --history-bg: #0f172a;
+  --csv-border: rgba(59, 130, 246, 0.2);
+  --csv-bg: rgba(59, 130, 246, 0.03);
 }
 
 body {

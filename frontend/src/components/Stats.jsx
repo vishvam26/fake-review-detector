@@ -19,7 +19,10 @@ function Stats() {
 
   return (
     <div className="card">
-      <h2>📊 Analytics Dashboard</h2>
+      <div className="form-card-header">
+        <i className="ti ti-chart-bar" />
+        <h2>Analytics Dashboard</h2>
+      </div>
       <div className="stats-grid">
         <div className="stat-box total-stat">
           <div className="stat-number">{stats.total_analyzed}</div>

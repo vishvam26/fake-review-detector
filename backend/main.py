@@ -9,7 +9,6 @@ import re
 import csv
 import io
 import os
-import serpapi
 import requests
 from textblob import TextBlob
 import nltk
@@ -17,6 +16,8 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from database import save_prediction, get_history
 from dotenv import load_dotenv
+from nltk.corpus import wordnet
+
 
 load_dotenv()
 
@@ -40,7 +41,13 @@ scaler = joblib.load("scaler.pkl")
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words("english"))
 
-SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
+AI_SIGNATURE_WORDS = [
+    "testament", "moreover", "delighted", "furthermore", "in summary",
+    "overall", "not only", "but also", "seamless", "sleek", "stunning",
+    "highly recommend", "perfect balance", "efficient", "nestled", "tapestry",
+    "delve", "meticulously", "user-friendly", "versatile", "designed with",
+    "elevate", "cutting-edge", "game-changer", "impressive", "outstanding"
+]
 
 
 class ReviewRequest(BaseModel):
@@ -83,28 +90,12 @@ def extract_features(text, score):
     return sp.hstack([tfidf_vec, extra_scaled])
 
 
-def extract_asin(url):
-    asin = ""
-    if "/dp/" in url:
-        asin = url.split("/dp/")[1].split("/")[0].split("?")[0]
-    elif "/product/" in url:
-        asin = url.split("/product/")[1].split("/")[0].split("?")[0]
-    elif "amzn.in" in url or "amzn.to" in url or "/d/" in url:
-        try:
-            expanded = requests.get(url, allow_redirects=True, timeout=10).url
-            print(f"Expanded URL: {expanded}")
-            if "/dp/" in expanded:
-                asin = expanded.split("/dp/")[1].split("/")[0].split("?")[0]
-            elif "/product/" in expanded:
-                asin = expanded.split("/product/")[1].split("/")[0].split("?")[0]
-        except Exception as ex:
-            print(f"Expand failed: {str(ex)}")
-    return asin
+# Scraping functions removed.
 
 
 @app.get("/")
 def root():
-    return {"message": "Fake Review Detector API running ✅"}
+    return {"message": "Fake Review Detector API running"}
 
 
 @app.post("/predict")
@@ -179,125 +170,140 @@ async def predict_bulk(file: UploadFile = File(...)):
     )
 
 
-@app.post("/analyze/url")
-async def analyze_url(data: dict):
-    url = data.get("url", "")
-    if not url:
-        return {"error": "URL required"}
-    try:
-        asin = extract_asin(url)
-        if not asin:
-            return {"error": f"ASIN extract failed. URL: {url}"}
-
-        product_name = ""
+def analyze_ai_text(text: str):
+    # Pre-clean / tokenize
+    sentences = [s.strip() for s in re.split(r'[.!?]+', text) if s.strip()]
+    num_sentences = len(sentences)
+    
+    # Word tokenization for statistics
+    words = [w.lower() for w in re.sub(r'[^a-zA-Z\s]', '', text).split() if w]
+    total_words = len(words)
+    
+    # 1. Vocabulary Diversity (TTR)
+    unique_words = len(set(words))
+    ttr = (unique_words / total_words) if total_words > 0 else 0.0
+    
+    # 2. Sentence Uniformity (Burstiness)
+    sentence_lengths = [len(s.split()) for s in sentences]
+    avg_sentence_len = np.mean(sentence_lengths) if sentence_lengths else 0.0
+    sentence_len_std = float(np.std(sentence_lengths)) if len(sentence_lengths) > 1 else 0.0
+    
+    # 3. Spelling Error Ratio (using NLTK wordnet synsets)
+    candidate_words = [w for w in words if w not in stop_words and len(w) > 3]
+    misspelled_count = 0
+    for w in candidate_words:
         try:
-            import requests as req2
-            exp = req2.get(url, allow_redirects=True, timeout=10).url
-            if "/dp/" in exp:
-                before_dp = exp.split("/dp/")[0]
-                parts = [p for p in before_dp.split("/") if p and "amazon" not in p.lower() and len(p) > 5]
-                if parts:
-                    product_name = parts[-1].replace("-", " ")
-        except:
+            if not wordnet.synsets(w):
+                misspelled_count += 1
+        except Exception:
             pass
-        query = product_name + " amazon reviews" if product_name else asin + " amazon product reviews"
-        print("Product:", product_name)
-        print("Query:", query)
-        results = serpapi.search(
-            {
-                "engine": "google",
-                "q": f"{asin} amazon reviews site:amazon.com",
-                "api_key": SERPAPI_KEY,
-                "num": 10,
-            }
-        )
-
-        reviews_data = []
-        for r in results.get("organic_results", []):
-            snippet = r.get("snippet", "")
-            if snippet and len(snippet) > 30:
-                reviews_data.append(
-                    {
-                        "body": snippet,
-                        "rating": 4,
-                        "profile": {"name": "Amazon Customer"},
-                    }
-                )
-        for q in results.get("related_questions", []):
-            snippet = q.get("snippet", "")
-            if snippet and len(snippet) > 30:
-                reviews_data.append(
-                    {
-                        "body": snippet,
-                        "rating": 4,
-                        "profile": {"name": "Amazon Customer"},
-                    }
-                )
-
-        if not reviews_data:
-            return {"error": "No reviews found"}
-
-        analyzed = []
-        fake_count = 0
-        total_confidence = 0
-
-        for r in reviews_data[:10]:
-            review_text = r.get("body", "") or r.get("title", "")
-            rating = r.get("rating", 5)
-            if not review_text or len(review_text) < 10:
-                continue
-            features = extract_features(review_text, rating)
-            prediction = int(model.predict(features)[0])
-            confidence = round(
-                float(model.predict_proba(features)[0][prediction]) * 100, 2
-            )
-            label = "Fake" if prediction == 1 else "Genuine"
-            if label == "Fake":
-                fake_count += 1
-            total_confidence += confidence
-            analyzed.append(
-                {
-                    "text": review_text[:150],
-                    "label": label,
-                    "confidence": confidence,
-                    "rating": rating,
-                    "reviewer": r.get("profile", {}).get("name", "Anonymous"),
-                }
-            )
-            save_prediction(review_text, rating, label, confidence)
-
-        if not analyzed:
-            return {"error": "No valid reviews found"}
-
-        total = len(analyzed)
-        genuine_count = total - fake_count
-        fake_percentage = round((fake_count / total) * 100, 1)
-        trust_score = round(100 - fake_percentage, 1)
-        avg_confidence = round(total_confidence / total, 2)
-
-        if trust_score >= 80:
-            recommendation = "✅ Worth Buying"
-            rec_color = "green"
-        elif trust_score >= 60:
-            recommendation = "⚠️ Buy with Caution"
-            rec_color = "yellow"
+    spelling_error_ratio = (misspelled_count / len(candidate_words)) if candidate_words else 0.0
+    
+    # 4. Sentiment Consistency (variance of sentence polarity)
+    polarities = [TextBlob(s).sentiment.polarity for s in sentences]
+    sentiment_std = float(np.std(polarities)) if len(polarities) > 1 else 0.0
+    avg_sentiment = float(np.mean(polarities)) if polarities else 0.0
+    
+    # 5. Caps and Exclamations Ratio
+    char_count = len(text)
+    caps_ratio = sum(1 for c in text if c.isupper()) / (char_count + 1)
+    exclamation_count = text.count("!")
+    exclamation_ratio = exclamation_count / (char_count + 1)
+    
+    # 6. AI Signature Buzzwords count
+    text_lower = text.lower()
+    buzzwords_found = []
+    for w in AI_SIGNATURE_WORDS:
+        if w in text_lower:
+            buzzwords_found.append(w)
+    buzzword_score = len(buzzwords_found)
+    
+    # Heuristic AI Probability calculation (0-100)
+    ai_score = 50.0
+    explanations = []
+    
+    # A. Spelling error effect
+    if spelling_error_ratio > 0.08:
+        ai_score -= 25
+        explanations.append("Contains noticeable spelling errors or slang, typical of human writing.")
+    elif spelling_error_ratio < 0.02 and len(candidate_words) >= 5:
+        ai_score += 10
+        explanations.append("Grammar and spelling are exceptionally clean.")
+        
+    # B. Sentence Uniformity
+    if num_sentences >= 3:
+        if sentence_len_std < 3.5:
+            ai_score += 15
+            explanations.append("Sentences are highly uniform in length, showing a robotic, structured flow.")
+        elif sentence_len_std > 7.5:
+            ai_score -= 15
+            explanations.append("Sentence lengths vary significantly, showing a natural, human-like dynamic flow.")
+    else:
+        if total_words < 10:
+            ai_score -= 15
+            explanations.append("Review is extremely short, which is common for brief human feedback.")
+            
+    # C. Sentiment Consistency
+    if num_sentences >= 3:
+        if sentiment_std < 0.08:
+            ai_score += 10
+            explanations.append("Sentiment is highly uniform throughout the review.")
+        elif sentiment_std > 0.25:
+            ai_score -= 15
+            explanations.append("Sentiment shifts dynamically between sentences, showing natural emotional changes.")
+            
+    # D. Exclamations / Caps Ratio
+    if exclamation_ratio > 0.02:
+        ai_score -= 15
+        explanations.append("Uses multiple exclamation marks, suggesting emotional human input.")
+    if caps_ratio > 0.15:
+        ai_score -= 15
+        explanations.append("Has a high ratio of capital letters, indicating human emphasis or excitement.")
+    elif caps_ratio == 0.0 and total_words > 5:
+        ai_score -= 10
+        explanations.append("Contains zero capitalization, indicating informal human messaging.")
+        
+    # E. AI Buzzwords
+    if buzzword_score > 0:
+        boost = min(buzzword_score * 8, 25)
+        ai_score += boost
+        words_str = ", ".join([f"'{w}'" for w in buzzwords_found[:3]])
+        explanations.append(f"Contains signature AI transition words or adjectives: {words_str}.")
+        
+    # Clamp AI score
+    ai_score = max(2.0, min(98.0, ai_score))
+    
+    if not explanations:
+        if ai_score > 50:
+            explanations.append("The review structure matches patterns typical of machine-generated text.")
         else:
-            recommendation = "❌ Avoid — Too Many Fake Reviews"
-            rec_color = "red"
+            explanations.append("The review exhibits natural variety and vocabulary typical of human writing.")
+            
+    label = "AI-Generated" if ai_score >= 50 else "Human-Written"
+    
+    return {
+        "score": round(ai_score, 1),
+        "label": label,
+        "metrics": {
+            "vocabulary_diversity": round(ttr * 100, 1),
+            "sentence_uniformity": round(sentence_len_std, 2),
+            "spelling_quality": round((1.0 - spelling_error_ratio) * 100, 1),
+            "sentiment_consistency": round(sentiment_std, 3),
+            "caps_ratio": round(caps_ratio * 100, 1),
+            "exclamation_count": exclamation_count,
+            "word_count": total_words,
+            "sentence_count": num_sentences
+        },
+        "explanations": explanations
+    }
 
-        return {
-            "asin": asin,
-            "url": url,
-            "total_reviews": total,
-            "fake_count": fake_count,
-            "genuine_count": genuine_count,
-            "fake_percentage": fake_percentage,
-            "trust_score": trust_score,
-            "avg_confidence": avg_confidence,
-            "recommendation": recommendation,
-            "rec_color": rec_color,
-            "reviews": analyzed,
-        }
+class AIDetectRequest(BaseModel):
+    text: str
 
-    except Exception as e:
-        return {"error": f"Scraping failed: {str(e)}"}
+@app.post("/detect/ai")
+def detect_ai(req: AIDetectRequest):
+    if not req.text.strip():
+        return {"error": "Text is empty"}
+    result = analyze_ai_text(req.text)
+    save_prediction(req.text[:200], 5, result["label"], result["score"])
+    return result
