@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <!-- Left Dark Indigo/Blue Facet Gradient -->
+    <linearGradient id="left-wall-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0B1A"/>
+      <stop offset="60%" stop-color="#14153B"/>
+      <stop offset="100%" stop-color="#211E63"/>
+    </linearGradient>
+
+    <!-- Left Outer Facet Highlight -->
+    <linearGradient id="left-highlight-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4F52A3"/>
+      <stop offset="100%" stop-color="#1D1F52"/>
+    </linearGradient>
+
+    <!-- Right Shield Wall & Checkmark Gradient (Deep purple to bright violet) -->
+    <linearGradient id="purple-shield-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#270966"/>
+      <stop offset="40%" stop-color="#5B22E0"/>
+      <stop offset="80%" stop-color="#894AF5"/>
+      <stop offset="100%" stop-color="#A56EFF"/>
+    </linearGradient>
+
+    <!-- Inner Check Highlight Gradient -->
+    <linearGradient id="check-highlight-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B282FF" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#7332FA" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#270966" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(0, 5)">
+    <!-- 1. Left Outer Facet -->
+    <path d="M 100,160 L 52,92 L 65,42 L 100,56 Z" fill="url(#left-wall-grad)" />
+
+    <!-- 2. Left Highlight Facet (gives the 3D edge look) -->
+    <path d="M 52,92 L 65,42 L 78,48 L 65,90 Z" fill="url(#left-highlight-grad)" opacity="0.8"/>
+
+    <!-- 3. Left Inner Shadow (creates depth toward center) -->
+    <path d="M 100,160 L 100,126 L 65,90 L 52,92 Z" fill="#080814" opacity="0.5" />
+
+    <!-- 4. Left Top Dip Facet -->
+    <path d="M 65,42 L 100,56 L 100,75 L 78,48 Z" fill="#131333" />
+
+    <!-- 5. Right Wall & Checkmark (Main Purple) -->
+    <!-- This shape starts from the bottom tip, runs along the right edge, curves in at the top right, and forms the checkmark hook -->
+    <path d="M 100,160 L 148,92 L 135,42 L 100,56 L 100,75 L 118,65 L 126,90 L 100,128 L 84,106 L 73,116 L 100,148 Z" fill="url(#purple-shield-grad)" />
+
+    <!-- 6. Right Outer Facet Detail (Faceted 3D border) -->
+    <path d="M 148,92 L 135,42 L 118,65 L 126,90 Z" fill="#894AF5" opacity="0.3" />
+
+    <!-- 7. Checkmark Inner Highlight & Gloss -->
+    <path d="M 100,148 L 126,90 L 135,42 L 100,56 Z" fill="url(#check-highlight-grad)" />
+
+    <!-- 8. Checkmark Left hook Facet detail (overlapping part of the tick) -->
+    <path d="M 84,106 L 100,128 L 100,148 Z" fill="#1D064F" opacity="0.4" />
+  </g>
+</svg>

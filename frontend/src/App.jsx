@@ -73,8 +73,9 @@ export default function App() {
 
       <header className="header">
         <div className="header-content">
-          <div className="logo" onClick={() => setActiveTab("detector")} style={{ cursor: "pointer" }}>
-            <span className="logo-text">ReviewGuard</span>
+          <div className="logo" onClick={() => setActiveTab("detector")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}>
+            <img src="/logo.svg" alt="ReviewGuard AI Logo" style={{ width: "34px", height: "34px" }} />
+            <span className="logo-text">ReviewGuard<span>AI</span></span>
           </div>
 
           <nav className="header-nav">
@@ -213,7 +214,10 @@ export default function App() {
       <footer className="footer">
         <div className="footer-sitemap-grid">
           <div className="footer-brand-col">
-            <h3 className="footer-logo">ReviewGuard AI</h3>
+            <h3 className="footer-logo" style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "1.4rem", color: "var(--text-primary)", marginBottom: "1rem" }}>
+              <img src="/logo.svg" alt="ReviewGuard AI Logo" style={{ width: "28px", height: "28px" }} />
+              ReviewGuard<span style={{ background: "linear-gradient(135deg, #6F2CF4, #A56EFF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>AI</span>
+            </h3>
             <p className="footer-desc">Verifying digital credibility and feedback authenticity globally using advanced Natural Language Processing models.</p>
 
             {/* Lead Agent contact card style engineer block */}

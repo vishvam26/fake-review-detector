@@ -89,11 +89,17 @@
   user-select: none;
 }
 .logo-text {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  font-weight: 900;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+.logo-text span {
+  background: linear-gradient(135deg, #6F2CF4, #A56EFF);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 900;
+  margin-left: 5px;
 }
 
 .header-nav {
