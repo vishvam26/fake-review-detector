@@ -23,9 +23,9 @@ export default function App() {
   const tabs = [
     { id: "detector", label: "Detector" },
     { id: "ai_detector", label: "AI Detector" },
-    { id: "bulk",     label: "Bulk CSV" },
-    { id: "history",  label: "History" },
-    { id: "stats",    label: "Stats" },
+    { id: "bulk", label: "Bulk CSV" },
+    { id: "history", label: "History" },
+    { id: "stats", label: "Stats" },
   ]
 
   const getTimelineStats = () => {
@@ -168,45 +168,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Integrations & Channels Section (Allys styled amenities grid) */}
-            <section className="integrations-section">
-              <div className="section-title-wrap">
-                <div className="section-pretitle">Enterprise Channels</div>
-                <h2 className="section-title">Integrations & Live Connectors</h2>
-              </div>
-              <div className="integrations-grid">
-                <div className="integration-card">
-                  <div className="integration-icon-wrap">
-                    <i className="ti ti-shopping-cart" />
-                  </div>
-                  <h3>E-Commerce Audits</h3>
-                  <p className="integration-desc">Connect directly to Amazon, Shopify, or WooCommerce stores using our automated review crawler API.</p>
-                  <a href="#shopify-docs" className="doc-link-tag" onClick={e => e.preventDefault()}>
-                    Configure Store Connector <i className="ti ti-arrow-up-right" />
-                  </a>
-                </div>
-                <div className="integration-card">
-                  <div className="integration-icon-wrap">
-                    <i className="ti ti-plane-departure" />
-                  </div>
-                  <h3>Travel & Booking</h3>
-                  <p className="integration-desc">Analyze hotel, booking, and restaurant reviews from platforms like TripAdvisor, Airbnb, and Booking.com.</p>
-                  <a href="#travel-docs" className="doc-link-tag" onClick={e => e.preventDefault()}>
-                    Connect Travel APIs <i className="ti ti-arrow-up-right" />
-                  </a>
-                </div>
-                <div className="integration-card">
-                  <div className="integration-icon-wrap">
-                    <i className="ti ti-map-pin" />
-                  </div>
-                  <h3>Local Maps & Search</h3>
-                  <p className="integration-desc">Integrate with local listings on Yelp and Google Maps API to track reviews and spot malicious bot campaigns.</p>
-                  <a href="#maps-docs" className="doc-link-tag" onClick={e => e.preventDefault()}>
-                    Track Business Reviews <i className="ti ti-arrow-up-right" />
-                  </a>
-                </div>
-              </div>
-            </section>
+
           </>
         )}
         {activeTab === "ai_detector" && <AiDetector />}
@@ -241,7 +203,7 @@ export default function App() {
 
       {/* Floating Chatbot Assistant widget (Allys WhatsApp style float button) */}
       <div className="floating-chat-container">
-        <button className="floating-chat-btn" onClick={() => alert("ReviewGuard AI Support Assistant is launching! For API keys or custom integrations, please write to support@reviewguard.ai.")}>
+        <button className="floating-chat-btn" onClick={() => alert("ReviewGuard AI Support Assistant is launching! For API keys or custom integrations, please write to p.vishu2621@gmail.com.")}>
           <i className="ti ti-message-chatbot" />
         </button>
         <div className="floating-chat-tooltip">Ask AI Assistant</div>
@@ -253,18 +215,18 @@ export default function App() {
           <div className="footer-brand-col">
             <h3 className="footer-logo">ReviewGuard AI</h3>
             <p className="footer-desc">Verifying digital credibility and feedback authenticity globally using advanced Natural Language Processing models.</p>
-            
+
             {/* Lead Agent contact card style engineer block */}
             <div className="agent-contact-card">
               <div className="agent-avatar-wrap">AM</div>
               <div className="agent-info">
-                <div className="agent-name">Alex Mercer</div>
-                <div className="agent-title">Lead AI Engineer</div>
-                <button className="agent-btn" onClick={() => alert("Connecting with Alex... Please email support@reviewguard.ai")}>Contact Engineer</button>
+                <div className="agent-name">Vishvam Prajapati</div>
+                <div className="agent-title">Computer science Engineer</div>
+                <button className="agent-btn" onClick={() => alert("Connecting with vishvam... Please email p.vishu2621@gmail.com")}>Contact Engineer</button>
               </div>
             </div>
           </div>
-          
+
           <div className="footer-nav-col">
             <h4>Detector Tools</h4>
             <div className="footer-nav-links">
@@ -314,7 +276,8 @@ export default function App() {
           <div className="footer-social-wrap">
             <div className="footer-social-links">
               <span className="footer-social-icon" title="Twitter" onClick={() => alert("Opening Twitter...")}><i className="ti ti-brand-x" /></span>
-              <span className="footer-social-icon" title="GitHub" onClick={() => alert("Opening GitHub...")}><i className="ti ti-brand-github" /></span>
+              <span className="footer-social-icon" title="GitHub" onClick={() => window.open("https://github.com/vishvam26", "_blank")}><i className="ti ti-brand-github" /></span>
+              <span className="footer-social-icon" title="LinkedIn" onClick={() => window.open("https://www.linkedin.com/in/vishvamkumarprajapati", "_blank")}><i className="ti ti-brand-linkedin" /></span>
               <span className="footer-social-icon" title="Discord" onClick={() => alert("Opening Discord...")}><i className="ti ti-brand-discord" /></span>
             </div>
             <p className="copyright">© 2026 ReviewGuard AI. All rights reserved.</p>

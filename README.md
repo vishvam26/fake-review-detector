@@ -305,8 +305,8 @@ Tech: Python, XGBoost, TF-IDF, FastAPI, React.js, PostgreSQL, Power BI
 
 **Vishvam Prajapati**
 B.Tech CSE @ JECRC University, Jaipur (2023–2027)
-📧 p.vishu2685@gmail.com
-🔗 [LinkedIn](https://linkedin.com/in/vishvam) | [GitHub](https://github.com/vishvam26)
+📧 p.vishu2621@gmail.com
+🔗 [LinkedIn](https://www.linkedin.com/in/vishvamkumarprajapati) | [GitHub](https://github.com/vishvam26)
 
 ---
 
