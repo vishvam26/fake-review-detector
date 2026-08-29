@@ -7,14 +7,13 @@ const ResultCard = lazy(() => import("./components/ResultCard"))
 const History = lazy(() => import("./components/History"))
 const Stats = lazy(() => import("./components/Stats"))
 const AiDetector = lazy(() => import("./components/AiDetector"))
-const NexumHero = lazy(() => import("./components/NexumHero"))
 
 const TabFallback = () => <div className="skeleton-loader" style={{ minHeight: "320px", borderRadius: "20px" }} />
 
 export default function App() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState("rama")
+  const [activeTab, setActiveTab] = useState("detector")
   const [theme, setTheme] = useState("light")
   const [timeline, setTimeline] = useState("7d")
 
@@ -25,7 +24,6 @@ export default function App() {
   const toggleTheme = () => setTheme(t => t === "light" ? "dark" : "light")
 
   const tabs = [
-    { id: "rama", label: "Rama" },
     { id: "detector", label: "Detector" },
     { id: "ai_detector", label: "AI Detector" },
     { id: "bulk", label: "Bulk CSV" },
@@ -80,7 +78,7 @@ export default function App() {
         <div className="header-content">
           <div
             className="logo"
-            onClick={() => setActiveTab("rama")}
+            onClick={() => setActiveTab("detector")}
             style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
           >
             <img src="/logo.svg" alt="ReviewGuard AI Logo" style={{ width: "34px", height: "34px" }} />
@@ -126,7 +124,6 @@ export default function App() {
 
       <main className="main">
         <Suspense fallback={<TabFallback />}>
-          {activeTab === "rama" && <NexumHero />}
           {activeTab === "detector" && (
             <>
               <div className="hero">
