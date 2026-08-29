@@ -1264,9 +1264,6 @@ textarea.styled-textarea:focus {
   background: var(--bg-card);
   border-radius: 12px;
   animation: skeleton-loading 1.4s ease-in-out infinite alternate;
-  &:where(.css-dev-only-do-not-use) /* eslint-disable-line css-dev-only-do-not-use */ {
-    background-color: var(--bg-card);
-  }
 }
 
 .skeleton-loader-text {
@@ -1316,6 +1313,7 @@ textarea.styled-textarea:focus {
     background-color: var(--bg-input);
   }
 }
+@media(max-width: 1024px) {
   .footer-sitemap-grid {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;

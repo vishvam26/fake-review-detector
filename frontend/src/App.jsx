@@ -2,6 +2,15 @@ import { useState, useEffect, Suspense, lazy } from "react"
 import "./App.css"
 import API_URL from "./config"
 
+const ReviewForm = lazy(() => import("./components/ReviewForm"))
+const ResultCard = lazy(() => import("./components/ResultCard"))
+const History = lazy(() => import("./components/History"))
+const Stats = lazy(() => import("./components/Stats"))
+const AiDetector = lazy(() => import("./components/AiDetector"))
+const NexumHero = lazy(() => import("./components/NexumHero"))
+
+const TabFallback = () => <div className="skeleton-loader" style={{ minHeight: "320px", borderRadius: "20px" }} />
+
 export default function App() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -58,60 +67,275 @@ export default function App() {
 
   const currentStats = getTimelineStats()
 
-  const tabImports = {
-    detector: lazy(() => import("./components/ReviewForm")),
-    ai_detector: lazy(() => import("./components/AiDetector")),
-    bulk: lazy(() => import("./components/ReviewForm")), // Reuse or create BulkUpload
-    history: lazy(() => import("./components/History")),
-    stats: lazy(() => import("./components/Stats")),
-  }
+  return (
+    <div className="app">
+      <div className="orb-wrap">
+        <div className="orb orb1" />
+        <div className="orb orb2" />
+        <div className="orb orb3" />
+      </div>
 
-  const TabContent = ({ tabId }) => {
-    const Loader = () => <div className="skeleton-loader" />
-    return (
-      <Suspense fallback={<Loader />}>
-        {tabId === "detector" && <ReviewForm setResult={setResult} setLoading={setLoading} />}
-        {tabId === "ai_detector" && <AiDetector />}
-        {tabId === "bulk" && <CsvUpload />}
-        {tabId === "history" && <History />}
-        {tabId === "stats" && <Stats />}
-      </Suspense>
-    )
-  }
+      <header className="header">
+        <div className="header-content">
+          <div
+            className="logo"
+            onClick={() => setActiveTab("detector")}
+            style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}
+          >
+            <img src="/logo.svg" alt="ReviewGuard AI Logo" style={{ width: "34px", height: "34px" }} />
+            <span className="logo-text">ReviewGuard<span>AI</span></span>
+          </div>
 
-<Suspense fallback={<div className="skeleton-loader" />}>
-  {activeTab === "detector" && (
-    <ReviewForm setResult={setResult} setLoading={setLoading} />
-  )}
-  {activeTab === "ai_detector" && <AiDetector />}
-  {activeTab === "bulk" && (
-    <div style={{ maxWidth: "680px", margin: "0 auto", paddingTop: "2rem" }}>
-      <div className="page-header" style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <h2>Bulk CSV Analyzer</h2>
-        <p>Upload a file containing multiple reviews to analyze them all in one go and download a detailed CSV report.</p>
+          <nav className="header-nav">
+            {tabs.map(t => (
+              <button
+                key={t.id}
+                className={activeTab === t.id ? "nav-link active" : "nav-link"}
+                onClick={() => {
+                  setActiveTab(t.id)
+                  setResult(null)
+                }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="header-right">
+            <span className="global-badge">
+              <span className="global-dot" />
+              GLOBAL (EN)
+            </span>
+            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+              {theme === "light" ? (
+                <i className="ti ti-moon" />
+              ) : (
+                <i className="ti ti-sun" />
+              )}
+            </button>
+            <button
+              className="upgrade-btn"
+              onClick={() => alert("Upgrade request sent! Our enterprise team will contact you soon.")}
+            >
+              Upgrade Pro
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main className="main">
+        <Suspense fallback={<TabFallback />}>
+          {activeTab === "detector" && (
+            <>
+              <div className="hero">
+                <div className="hero-tag">
+                  <div className="hero-dot" />
+                  AI-Powered Review Analysis
+                </div>
+                <div className="hero-coords">NLP SCANNER • MODEL ID: XGB-V1.7.2 • RG-COORD: 20.0013° S, 57.5750° E</div>
+                <h2>Verify and Detect <span>Fake Reviews</span><br />Instantly</h2>
+                <p>Leverage our state-of-the-art machine learning algorithms to audit feedback authenticity and safeguard digital trust.</p>
+              </div>
+
+              <div className="intel-section">
+                <div className="intel-header-row">
+                  <h3 className="intel-title">Model Performance & Intelligence</h3>
+                  <div className="timeline-btn-group">
+                    <button
+                      className={timeline === "1d" ? "timeline-btn active" : "timeline-btn"}
+                      onClick={() => setTimeline("1d")}
+                    >Today</button>
+                    <button
+                      className={timeline === "7d" ? "timeline-btn active" : "timeline-btn"}
+                      onClick={() => setTimeline("7d")}
+                    >7 Days</button>
+                    <button
+                      className={timeline === "30d" ? "timeline-btn active" : "timeline-btn"}
+                      onClick={() => setTimeline("30d")}
+                    >30 Days</button>
+                  </div>
+                </div>
+                <div className="intel-grid">
+                  <div className="intel-card">
+                    <div className="intel-label">Reviews Audited</div>
+                    <div className="intel-val">{currentStats.audited}</div>
+                    <div className="intel-desc">{currentStats.descAudited}</div>
+                  </div>
+                  <div className="intel-card">
+                    <div className="intel-label">Detection Accuracy</div>
+                    <div className="intel-val green">{currentStats.accuracy}</div>
+                    <div className="intel-desc">{currentStats.descAccuracy}</div>
+                  </div>
+                  <div className="intel-card">
+                    <div className="intel-label">Spam Drift</div>
+                    <div className="intel-val">{currentStats.growth}</div>
+                    <div className="intel-desc">{currentStats.descGrowth}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="detector-grid">
+                <div className="left-col">
+                  <ReviewForm setResult={setResult} setLoading={setLoading} />
+                  <CsvUpload />
+                </div>
+                <div className="right-col">
+                  {loading && (
+                    <div className="card loading-wrap">
+                      <div className="spinner" />
+                      <p>Analyzing review with AI...</p>
+                    </div>
+                  )}
+                  {result && !loading && <ResultCard result={result} />}
+                  {!result && !loading && <RecentHistory setActiveTab={setActiveTab} />}
+                </div>
+              </div>
+            </>
+          )}
+          {activeTab === "ai_detector" && <AiDetector />}
+          {activeTab === "bulk" && (
+            <div style={{ maxWidth: "680px", margin: "0 auto", paddingTop: "2rem" }}>
+              <div className="page-header" style={{ textAlign: "center", marginBottom: "2rem" }}>
+                <h2>Bulk CSV Analyzer</h2>
+                <p>Upload a file containing multiple reviews to analyze them all in one go and download a detailed CSV report.</p>
+              </div>
+              <CsvUpload />
+            </div>
+          )}
+          {activeTab === "history" && (
+            <div style={{ maxWidth: "800px", margin: "0 auto", paddingTop: "2rem" }}>
+              <div className="page-header" style={{ marginBottom: "1.5rem" }}>
+                <h2>Analysis History</h2>
+                <p>Review the history of all texts analyzed by the system in this session.</p>
+              </div>
+              <History />
+            </div>
+          )}
+          {activeTab === "stats" && (
+            <div style={{ maxWidth: "800px", margin: "0 auto", paddingTop: "2rem" }}>
+              <div className="page-header" style={{ marginBottom: "1.5rem" }}>
+                <h2>Analytics & Performance</h2>
+                <p>Real-time statistics of predictions, model correctness, and prediction distributions.</p>
+              </div>
+              <Stats />
+            </div>
+          )}
+        </Suspense>
+      </main>
+
+      <div className="floating-chat-container">
+        <button
+          className="floating-chat-btn"
+          onClick={() => alert("ReviewGuard AI Support Assistant is launching! For API keys or custom integrations, please write to p.vishu2621@gmail.com.")}
+        >
+          <i className="ti ti-message-chatbot" />
+        </button>
+        <div className="floating-chat-tooltip">Ask AI Assistant</div>
       </div>
-      <CsvUpload />
+
+      <footer className="footer">
+        <div className="footer-sitemap-grid">
+          <div className="footer-brand-col">
+            <h3
+              className="footer-logo"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: 800,
+                fontSize: "1.4rem",
+                color: "var(--text-primary)",
+                marginBottom: "1rem"
+              }}
+            >
+              <img src="/logo.svg" alt="ReviewGuard AI Logo" style={{ width: "28px", height: "28px" }} />
+              ReviewGuard<span
+                style={{
+                  background: "linear-gradient(135deg, #6F2CF4, #A56EFF)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent"
+                }}
+              >AI</span>
+            </h3>
+            <p className="footer-desc">Verifying digital credibility and feedback authenticity globally using advanced Natural Language Processing models.</p>
+
+            <div className="agent-contact-card">
+              <div className="agent-avatar-wrap">AM</div>
+              <div className="agent-info">
+                <div className="agent-name">Vishvam Prajapati</div>
+                <div className="agent-title">Computer science Engineer</div>
+                <button
+                  className="agent-btn"
+                  onClick={() => alert("Connecting with vishvam... Please email p.vishu2621@gmail.com")}
+                >Contact Engineer</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-nav-col">
+            <h4>Detector Tools</h4>
+            <div className="footer-nav-links">
+              <a href="#detector" onClick={(e) => { e.preventDefault(); setActiveTab("detector"); }}>XGBoost Detector</a>
+              <a href="#ai_detector" onClick={(e) => { e.preventDefault(); setActiveTab("ai_detector"); }}>AI Writing Analyzer</a>
+              <a href="#bulk" onClick={(e) => { e.preventDefault(); setActiveTab("bulk"); }}>Bulk CSV Scan</a>
+              <a href="#history" onClick={(e) => { e.preventDefault(); setActiveTab("history"); }}>History Session</a>
+              <a href="#stats" onClick={(e) => { e.preventDefault(); setActiveTab("stats"); }}>Analytics</a>
+            </div>
+          </div>
+
+          <div className="footer-nav-col">
+            <h4>Developer APIs</h4>
+            <div className="footer-nav-links">
+              <a href="#docs" onClick={(e) => e.preventDefault()}>API Documentation</a>
+              <a href="#endpoints" onClick={(e) => e.preventDefault()}>Model Specifications</a>
+              <a href="#accuracy" onClick={(e) => e.preventDefault()}>Evaluation Metrics</a>
+              <a href="#pricing" onClick={(e) => e.preventDefault()}>Token Pricing</a>
+            </div>
+          </div>
+
+          <div className="footer-nav-col newsletter-wrap">
+            <h4>Stay Updated</h4>
+            <p className="newsletter-desc">Subscribe to get monthly intelligence digests on spam patterns and AI detection news.</p>
+            <form
+              className="newsletter-form"
+              onSubmit={(e) => { e.preventDefault(); alert("Successfully subscribed to ReviewGuard updates!"); }}
+            >
+              <input type="email" placeholder="Your email address" required className="newsletter-input" />
+              <button type="submit" className="newsletter-submit-btn">
+                <i className="ti ti-arrow-right" />
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <div className="footer-bottom-left">
+            <div className="footer-tags-title">Technology Stack & Signals</div>
+            <div className="footer-tags-list">
+              <span className="footer-tag-badge" onClick={() => alert("Analyzing model stack...")}>XGBoost Classifier</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking metrics stack...")}>Linguistic Diversity</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking LLM detection stack...")}>AI Text Detector</span>
+              <span className="footer-tag-badge" onClick={() => alert("Framework version: React v19")}>Vite + React</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking server API stack...")}>FastAPI Backend</span>
+              <span className="footer-tag-badge" onClick={() => alert("Checking analysis model...")}>Sentiment Drift</span>
+            </div>
+          </div>
+
+          <div className="footer-social-wrap">
+            <div className="footer-social-links">
+              <span className="footer-social-icon" title="Twitter" onClick={() => alert("Opening Twitter...")}><i className="ti ti-brand-x" /></span>
+              <span className="footer-social-icon" title="GitHub" onClick={() => window.open("https://github.com/vishvam26", "_blank")}><i className="ti ti-brand-github" /></span>
+              <span className="footer-social-icon" title="LinkedIn" onClick={() => window.open("https://www.linkedin.com/in/vishvamkumarprajapati", "_blank")}><i className="ti ti-brand-linkedin" /></span>
+              <span className="footer-social-icon" title="Discord" onClick={() => alert("Opening Discord...")}><i className="ti ti-brand-discord" /></span>
+            </div>
+            <p className="copyright">© 2026 ReviewGuard AI. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
-  )}
-  {activeTab === "history" && (
-    <div style={{ maxWidth: "800px", margin: "0 auto", paddingTop: "2rem" }}>
-      <div className="page-header" style={{ marginBottom: "1.5rem" }}>
-        <h2>Analysis History</h2>
-        <p>Review the history of all texts analyzed by the system in this session.</p>
-      </div>
-      <History />
-    </div>
-  )}
-  {activeTab === "stats" && (
-    <div style={{ maxWidth: "800px", margin: "0 auto", paddingTop: "2rem" }}>
-      <div className="page-header" style={{ marginBottom: "1.5rem" }}>
-        <h2>Analytics & Performance</h2>
-        <p>Real-time statistics of predictions, model correctness, and prediction distributions.</p>
-      </div>
-      <Stats />
-    </div>
-  )}
-</Suspense>
+  )
+}
 
 function CsvUpload() {
   const [file, setFile] = useState(null)
@@ -148,7 +372,6 @@ function CsvUpload() {
       const lines = text.trim().split("\n").length - 1
       setCount(lines)
 
-      // Auto download
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
