@@ -10,10 +10,11 @@ import csv
 import io
 import os
 import requests
-from textblob import TextBlob
 import nltk
 from nltk.corpus import stopwords
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer
+nltk.download("vader_lexicon", quiet=True)
 from database import save_prediction, get_history
 from dotenv import load_dotenv
 from nltk.corpus import wordnet
@@ -29,7 +30,7 @@ app = FastAPI(title="Fake Review Detector API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[os.getenv("CORS_ORIGINS", "http://localhost:5173")],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -40,6 +41,7 @@ scaler = joblib.load("scaler.pkl")
 
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words("english"))
+sid = SentimentIntensityAnalyzer()
 
 AI_SIGNATURE_WORDS = [
     "testament", "moreover", "delighted", "furthermore", "in summary",
@@ -57,9 +59,7 @@ class ReviewRequest(BaseModel):
 
 def clean_text(text):
     text = str(text).lower()
-    text = re.sub(r"http\S+", "", text)
-    text = re.sub(r"[^a-z\s]", "", text)
-    text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"http\S+|[^a-z\s]|\s+", lambda m: " " if m.group().isspace() else ("" if m.group().startswith("http") else m.group()), text).strip()
     tokens = text.split()
     tokens = [lemmatizer.lemmatize(w) for w in tokens if w not in stop_words]
     return " ".join(tokens)
@@ -68,7 +68,7 @@ def clean_text(text):
 def extract_features(text, score):
     clean = clean_text(text)
     tfidf_vec = tfidf.transform([clean])
-    sentiment = TextBlob(text).sentiment.polarity
+    sentiment = sid.polarity_scores(clean)["compound"]
     text_length = len(text)
     word_count = len(text.split())
     exclamation_count = text.count("!")
@@ -100,6 +100,10 @@ def root():
 
 @app.post("/predict")
 def predict(req: ReviewRequest):
+    if not req.text.strip():
+        return {"error": "Review text cannot be empty"}
+    if len(req.text) > 5000:
+        return {"error": "Review text exceeds maximum length of 5000 characters"}
     features = extract_features(req.text, req.score)
     prediction = int(model.predict(features)[0])
     confidence = round(float(model.predict_proba(features)[0][prediction]) * 100, 2)
@@ -200,7 +204,7 @@ def analyze_ai_text(text: str):
     spelling_error_ratio = (misspelled_count / len(candidate_words)) if candidate_words else 0.0
     
     # 4. Sentiment Consistency (variance of sentence polarity)
-    polarities = [TextBlob(s).sentiment.polarity for s in sentences]
+    polarities = [sid.polarity_scores(s)["compound"] for s in sentences]
     sentiment_std = float(np.std(polarities)) if len(polarities) > 1 else 0.0
     avg_sentiment = float(np.mean(polarities)) if polarities else 0.0
     

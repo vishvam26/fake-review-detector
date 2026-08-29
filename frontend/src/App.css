@@ -1259,8 +1259,63 @@ textarea.styled-textarea:focus {
   color: var(--text-muted);
 }
 
-/* Responsive adjustments */
-@media(max-width: 1024px) {
+/* Skeleton Loaders */
+.skeleton-loader {
+  background: var(--bg-card);
+  border-radius: 12px;
+  animation: skeleton-loading 1.4s ease-in-out infinite alternate;
+  &:where(.css-dev-only-do-not-use) /* eslint-disable-line css-dev-only-do-not-use */ {
+    background-color: var(--bg-card);
+  }
+}
+
+.skeleton-loader-text {
+  height: 14px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-loader-text-wide {
+  width: 100%;
+  height: 14px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-loader-text-tall {
+  height: 24px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-loader-text-thick {
+  height: 18px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-loader-button {
+  width: 180px;
+  height: 40px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+.skeleton-loader-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-color: var(--bg-card);
+  }
+  to {
+    background-color: var(--bg-input);
+  }
+}
   .footer-sitemap-grid {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;

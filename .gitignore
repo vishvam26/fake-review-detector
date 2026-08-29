@@ -27,3 +27,15 @@ Thumbs.db
 
 # Local helper scripts
 *.bat
+
+# Venv freeze files (root level auto-generated)
+# backend/requirements.txt is the real one
+/requirements.txt
+
+# Unused assets (already deleted, prevent re-adding)
+frontend/public/favicon.svg
+frontend/public/icons.svg
+frontend/src/assets/hero.png
+frontend/src/assets/react.svg
+frontend/src/assets/vite.svg
+frontend/src/components/UrlAnalyzer.jsx
