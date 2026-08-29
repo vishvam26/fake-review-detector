@@ -1,6 +1,22 @@
 import { useState, useEffect } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 
+/**
+ * Rama Hero — dark cinematic AI-ops landing hero
+ * Full-screen video background, glassmorphism, bottom-anchored content,
+ * mobile hamburger menu with slide-in drawer, animations.
+ *
+ * Stack: React + Tailwind + lucide-react
+ * No routing. One section only.
+ *
+ * Fonts: Geist (body), Silkscreen (stat "42,500+")
+ * Google Fonts: loaded in <head> via frontend/index.html
+ *
+ * Note: file/import name kept as "NexumHero" for back-compat with App.jsx
+ * (lazy import in App.jsx references "./components/NexumHero"); the rendered
+ * brand wordmark + copy is "rama" / "Rama".
+ */
+
 const VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260803_192301_9231ed6b-c55c-4a48-909c-4ebe11cf2e11.mp4"
 
@@ -126,18 +142,18 @@ export default function NexumHero() {
         className="hidden md:flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 lg:px-12"
         style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 30 }}
       >
-        {/* Left: Logo + "nexum" wordmark */}
+        {/* Left: Logo + "rama" wordmark */}
         <div className="flex items-center gap-2">
           <svg
             className="h-6 w-6 text-[#010101] fill-current lg:text-white"
             viewBox="0 0 256 256"
             xmlns="http://www.w3.org/2000/svg"
-            aria-label="nexum logo"
+            aria-label="rama logo"
           >
             <path d={LOGO_PATH} />
           </svg>
           <span className="text-lg font-semibold tracking-tight text-[#010101] lg:text-white">
-            nexum
+            rama
           </span>
         </div>
 
@@ -210,7 +226,7 @@ export default function NexumHero() {
                 42,500+
               </p>
               <p className="mt-3 sm:mt-4 text-sm leading-relaxed text-[#010101]/70 lg:text-white/70">
-                Teams run Nexum to handle recurring ops daily.
+                Teams run Rama to handle recurring ops daily.
               </p>
             </div>
 
@@ -228,7 +244,7 @@ export default function NexumHero() {
 
               {/* Quote */}
               <p className="text-sm leading-relaxed text-[#010101]/80 lg:text-white/80">
-                "With Nexum we went from managing tedious operational work to
+                "With Rama we went from managing tedious operational work to
                 having AI agents that handle everything."
               </p>
 
