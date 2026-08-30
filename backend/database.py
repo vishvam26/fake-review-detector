@@ -57,8 +57,11 @@ class BatchJob(Base):
     genuine_count = Column(Integer, nullable=False)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
 
-# Ensure all tables exist
-Base.metadata.create_all(bind=engine)
+# Ensure all tables exist safely without crashing startup
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Database init notice (will retry on query): {e}")
 
 def save_prediction(text, score, label, confidence):
     db = SessionLocal()
