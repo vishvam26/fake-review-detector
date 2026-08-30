@@ -15,7 +15,7 @@ from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer
 nltk.download("vader_lexicon", quiet=True)
-from database import save_prediction, get_history
+from database import save_prediction, save_ai_detection, save_batch_job, get_history
 from dotenv import load_dotenv
 from nltk.corpus import wordnet
 
@@ -139,27 +139,86 @@ def stats():
 @app.post("/predict/bulk")
 async def predict_bulk(file: UploadFile = File(...)):
     content = await file.read()
-    decoded = content.decode("utf-8")
-    reader = csv.DictReader(io.StringIO(decoded))
+    try:
+        decoded = content.decode("utf-8")
+    except UnicodeDecodeError:
+        decoded = content.decode("latin-1")
+
+    reader = list(csv.DictReader(io.StringIO(decoded)))
+    if not reader:
+        return {"error": "Uploaded CSV file is empty"}
+
+    # Find the best column for review text
+    fieldnames = reader[0].keys()
+    text_col = None
+    rating_col = None
+
+    # Priority column candidates
+    possible_text_cols = ["review_text", "review", "text", "content", "comment", "feedback", "description", "message", "body"]
+    for candidate in possible_text_cols:
+        for f in fieldnames:
+            if f and f.strip().lower() == candidate:
+                text_col = f
+                break
+        if text_col:
+            break
+
+    # If not found by exact name, look for partial match
+    if not text_col:
+        for f in fieldnames:
+            if f and any(cand in f.lower() for cand in ["review", "text", "comment", "desc"]):
+                text_col = f
+                break
+
+    # If still not found, fallback to the first string column
+    if not text_col and fieldnames:
+        text_col = list(fieldnames)[0]
+
+    # Find rating / score column
+    possible_score_cols = ["score", "rating", "stars", "star_rating"]
+    for candidate in possible_score_cols:
+        for f in fieldnames:
+            if f and f.strip().lower() == candidate:
+                rating_col = f
+                break
+        if rating_col:
+            break
+
     results = []
+    fake_count = 0
+    genuine_count = 0
+
     for row in reader:
-        text = row.get("review_text") or row.get("text") or row.get("review") or ""
-        score = int(row.get("score", 5) or 5)
-        if not text.strip():
+        text = str(row.get(text_col) or "").strip()
+        if not text:
             continue
+
+        raw_score = row.get(rating_col, 5) if rating_col else 5
+        try:
+            score = int(float(raw_score))
+            score = max(1, min(5, score))
+        except (ValueError, TypeError):
+            score = 5
+
         features = extract_features(text, score)
         prediction = int(model.predict(features)[0])
         confidence = round(float(model.predict_proba(features)[0][prediction]) * 100, 2)
         label = "Fake" if prediction == 1 else "Genuine"
+        if label == "Fake":
+            fake_count += 1
+        else:
+            genuine_count += 1
+
         save_prediction(text, score, label, confidence)
         results.append(
             {
-                "review_text": text[:100],
+                "review_text": text[:120],
                 "score": score,
                 "label": label,
                 "confidence": confidence,
             }
         )
+    save_batch_job(file.filename or "bulk_upload.csv", len(results), fake_count, genuine_count)
     output = io.StringIO()
     writer = csv.DictWriter(
         output, fieldnames=["review_text", "score", "label", "confidence"]
@@ -309,5 +368,10 @@ def detect_ai(req: AIDetectRequest):
     if not req.text.strip():
         return {"error": "Text is empty"}
     result = analyze_ai_text(req.text)
-    save_prediction(req.text[:200], 5, result["label"], result["score"])
+    save_ai_detection(
+        req.text,
+        result["score"],
+        result["label"],
+        result["metrics"].get("vocabulary_diversity")
+    )
     return result

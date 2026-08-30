@@ -1,87 +1,92 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
-  /* Allys Inspired Theme: Light Mode is Clean & Bright */
-  --bg: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-border: #e5e7eb;
-  --bg-input: #f9fafb;
-  --bg-nav: rgba(255, 255, 255, 0.85);
-  --bg-hero-tag: rgba(36, 52, 98, 0.05);
-  --bg-tab: #f3f4f6;
-  --bg-tab-active: #243462;
-  --bg-stat-pill: #f9fafb;
-  
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --text-label: #374151;
-  
-  --accent: #243462;       /* Allys Navy Blue */
-  --accent-light: #3b82f6; /* Electric Blue highlight */
-  --accent2: #0D5C35;      /* Allys Accent Green */
-  --accent-success: #10b981;
-  --accent-warning: #f59e0b;
-  --accent-error: #ef4444;
-  --border-accent: rgba(36, 52, 98, 0.15);
-  --border-card: #e5e7eb;
-  
-  --orb1: rgba(36, 52, 98, 0.06);
-  --orb2: rgba(13, 92, 53, 0.05);
-  --orb3: rgba(59, 130, 246, 0.04);
-  
-  --nav-border: #f3f4f6;
-  --shadow-card: rgba(0, 0, 0, 0.04);
-  --history-bg: #f9fafb;
-  --csv-border: rgba(36, 52, 98, 0.15);
-  --csv-bg: rgba(36, 52, 98, 0.02);
+  /* Nexum / Dark Cinematic AI-Ops Theme */
+  --font-main: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-stats: 'Silkscreen', cursive;
+
+  --bg-dark: #000000;
+  --bg-glass-nav: rgba(255, 255, 255, 0.10);
+  --bg-glass-card: rgba(255, 255, 255, 0.08);
+  --bg-glass-card-hover: rgba(255, 255, 255, 0.12);
+  --bg-glass-input: rgba(255, 255, 255, 0.06);
+  --bg-glass-overlay: rgba(0, 0, 0, 0.80);
+  --bg-glass-drawer: rgba(10, 10, 10, 0.92);
+
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --border-glass-light: rgba(255, 255, 255, 0.20);
+  --border-glass-focus: rgba(255, 255, 255, 0.40);
+
+  --text-white: #ffffff;
+  --text-white-90: rgba(255, 255, 255, 0.90);
+  --text-white-80: rgba(255, 255, 255, 0.80);
+  --text-white-70: rgba(255, 255, 255, 0.70);
+  --text-white-60: rgba(255, 255, 255, 0.60);
+  --text-white-40: rgba(255, 255, 255, 0.40);
+  --text-dark: #010101;
+
+  --gradient-cta: linear-gradient(to bottom, #2B2B2B, #101010);
+  --gradient-cta-hover: linear-gradient(to bottom, #383838, #181818);
+  --gradient-accent: linear-gradient(135deg, #10B981, #059669);
+  --gradient-purple: linear-gradient(135deg, #8B5CF6, #6366F1);
+
+  --status-real: #10b981;
+  --status-fake: #f43f5e;
+  --status-warning: #f59e0b;
+
+  --blur-md: blur(12px);
+  --blur-lg: blur(16px);
+  --blur-xl: blur(24px);
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-glow: 0 0 25px rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="dark"] {
-  /* Allys Inspired Theme: Dark Mode is Slate Navy */
-  --bg: #0b1120;
-  --bg-card: #151f32;
-  --bg-card-border: #1e293b;
-  --bg-input: #0f172a;
-  --bg-nav: rgba(11, 17, 32, 0.85);
-  --bg-hero-tag: rgba(59, 130, 246, 0.1);
-  --bg-tab: #1e293b;
-  --bg-tab-active: #3b82f6;
-  --bg-stat-pill: #151f32;
-  
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-label: #e2e8f0;
-  
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent2: #10b981;
-  --border-accent: rgba(59, 130, 246, 0.2);
-  --border-card: #1e293b;
-  
-  --orb1: rgba(59, 130, 246, 0.12);
-  --orb2: rgba(16, 185, 129, 0.08);
-  --orb3: rgba(99, 102, 241, 0.08);
-  
-  --nav-border: #1e293b;
-  --shadow-card: rgba(0, 0, 0, 0.3);
-  --history-bg: #0f172a;
-  --csv-border: rgba(59, 130, 246, 0.2);
-  --csv-bg: rgba(59, 130, 246, 0.03);
+[data-theme="light"] {
+  /* Subtle light adaptation while keeping the cinematic video feel */
+  --bg-glass-card: rgba(255, 255, 255, 0.15);
+  --border-glass: rgba(255, 255, 255, 0.25);
 }
 
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
+html, body {
+  width: 100%;
   min-height: 100vh;
-  color: var(--text-primary);
-  transition: background 0.3s ease, color 0.3s ease;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
+/* Silkscreen Utility */
+.font-silkscreen {
+  font-family: var(--font-stats) !important;
+  font-weight: normal;
+  letter-spacing: -0.05em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Button & Link Reset */
+button, input, textarea, select {
+  font-family: inherit;
 }

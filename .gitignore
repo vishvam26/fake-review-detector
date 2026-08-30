@@ -1,41 +1,60 @@
-# Python caches
+# ==============================================================================
+# Security & Secret Protection (.env files)
+# ==============================================================================
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# ==============================================================================
+# Databases & Local SQL Dumps
+# ==============================================================================
+*.db
+*.sqlite
+*.sqlite3
+backend/reviews.db
+reviews.db
+
+# ==============================================================================
+# Python Caches & Virtual Environments
+# ==============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
 venv/
 .venv/
 venv_new/
+.pytest_cache/
 
-# Databases and Local Storage
-*.db
-*.sqlite3
-backend/reviews.db
-
-# Configuration and Env files
-.env
-backend/.env
-
-# Node.js
+# ==============================================================================
+# Node.js / Vite Build Artifacts
+# ==============================================================================
 node_modules/
+frontend/node_modules/
 dist/
+frontend/dist/
 dist-ssr/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS files
+# ==============================================================================
+# OS & IDE System Files
+# ==============================================================================
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Local helper scripts
+# ==============================================================================
+# Temporary / Batch Scripts
+# ==============================================================================
 *.bat
-
-# Venv freeze files (root level auto-generated)
-# backend/requirements.txt is the real one
-/requirements.txt
-
-# Unused assets (already deleted, prevent re-adding)
-frontend/public/favicon.svg
-frontend/public/icons.svg
-frontend/src/assets/hero.png
-frontend/src/assets/react.svg
-frontend/src/assets/vite.svg
-frontend/src/components/UrlAnalyzer.jsx

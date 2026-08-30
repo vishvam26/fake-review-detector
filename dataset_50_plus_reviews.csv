@@ -1,0 +1,61 @@
+review_id,product_category,review_text,score,actual_label
+1,Electronics,"I bought this echo dot last week and the sound quality is crisp and clear. Easy setup with Alexa.",5,Genuine
+2,Electronics,"BEST DEAL EVER BUY NOW CLICK THIS LINK WWW.PROMO-DEAL.COM FREE DISCOUNT CODE GUARANTEED!",5,Fake
+3,Electronics,"The battery life is really poor, dies within 2 hours. Very disappointed with this purchase.",1,Genuine
+4,Electronics,"AMAZING PRODUCT WOW WOW 100% WORKING EXCELLENT GREAT BUY TODAY!!!",5,Fake
+5,Home,"Works as described. Delivered on time and packaging was good. Happy with the product.",4,Genuine
+6,Home,"Don't waste your money, broke on the first day itself.",1,Genuine
+7,Electronics,"In conclusion, this remarkable product delivers unparalleled efficiency and premium elegance.",5,Fake
+8,Audio,"The noise cancellation on these headphones is top tier. Rode the subway and heard zero ambient noise.",5,Genuine
+9,Audio,"BUY NOW CHEAP HEADPHONES 90% OFF VISIT HTTP://CHEAP-DEALS-FAST.NET FREE SHIPPING!",5,Fake
+10,Audio,"Bass is slightly muddy, but mids and highs are surprisingly clean for this price point.",4,Genuine
+11,Audio,"fake product fake seller do not buy returned immediately scam",1,Genuine
+12,Audio,"EXCELLENT ITEM 5 STARS BEST QUALITY MUST BUY BEST EVER SUPER FAST SHIP",5,Fake
+13,Computers,"Upgraded my desktop with this 1TB SSD. Boot time went from 45 seconds down to 8 seconds.",5,Genuine
+14,Computers,"FREE BITCOIN GIVEAWAY WITH EVERY PURCHASE REGISTER AT CRYPTO-BONUS.RU NOW!!",5,Fake
+15,Computers,"USB-C port on the hub feels a little loose, but all other HDMI and USB ports work reliably.",3,Genuine
+16,Computers,"Delighted with this cutting-edge peripheral. A testament to engineering perfection.",5,Fake
+17,Fashion,"The fabric is breathable cotton, stitching is sturdy, and it fits true to size.",5,Genuine
+18,Fashion,"100% FREE DESIGNER CLOTHES CLICK LINK BIT.LY/PROMO-DISCOUNT-TODAY WIN IPHONE",5,Fake
+19,Fashion,"Color was noticeably darker in person compared to product photos. Returning it.",2,Genuine
+20,Fashion,"AWESOME SHIRT WOW VERY GOOD AMAZING SUPER LOVE IT BUY MORE SOON",5,Fake
+21,Fashion,"Washed it twice in cold water and noticed no shrinking or color fading. Good daily wear.",4,Genuine
+22,Beauty,"Gentle on sensitive skin. No breakouts after 3 weeks of daily morning use.",5,Genuine
+23,Beauty,"MIRACLE ANTI AGING CREAM LOOK 20 YEARS YOUNGER OVERNIGHT ORDER NOW CALL 1800-SCAM",5,Fake
+24,Beauty,"Strong chemical smell when opened, burned slightly upon application. Stopped using immediately.",1,Genuine
+25,Beauty,"Delving into skincare excellence, this serum represents indispensable value for wellness.",5,Fake
+26,Beauty,"Hydrating moisturizer, leaves no oily residue. Dispenser pump works smoothly.",4,Genuine
+27,Kitchen,"Air fryer heats up quickly and cooks chicken wings crispy with minimal oil.",5,Genuine
+28,Kitchen,"CLICK HERE FOR 500 DOLLAR AMAZON GIFT CARD HTTP://AMZN-REWARDS.TOP WIN NOW",5,Fake
+29,Kitchen,"Handle broke off the lid on week two. Customer support refused replacement under warranty.",1,Genuine
+30,Kitchen,"SUPERB QUALITY VERY NICE WOW 100 STARS GREATEST KITCHEN TOOL EVER",5,Fake
+31,Kitchen,"The non-stick coating started peeling after 2 months of wooden spatula usage only.",2,Genuine
+32,Books,"Insightful read on behavioral economics. Thorough explanations backed by real world case studies.",5,Genuine
+33,Books,"DOWNLOAD FREE PDF EBOOK AND GET RICH QUICK AT HTTP://PASSIVE-INCOME-BOT.ORG",5,Fake
+34,Books,"Too theoretical and repetitive in chapters 4-6, could have been summarized into a blog post.",2,Genuine
+35,Books,"Furthermore, this literary triumph illuminates modern discourse with flawless prose.",5,Fake
+36,Gaming,"Mechanical switches feel tactile and responsive. RGB lighting customizable without extra bloatware.",5,Genuine
+37,Gaming,"FREE V-BUCKS GENERATOR NO HUMAN VERIFICATION VISIT FORTNITE-HACKS.ONLINE NOW",5,Fake
+38,Gaming,"Thumbsticks developed minor stick drift after about 60 hours of gameplay.",2,Genuine
+39,Gaming,"GREAT CONTROLLER 5 STARS BEST BEST BEST SUPER FAST SHIPPING RECOMMEND SELLER",5,Fake
+40,Gaming,"Ergonomic grip feels natural in hand during long sessions. Bluetooth pairing was instantaneous.",5,Genuine
+41,Fitness,"Resistance bands haven't snapped despite intense daily workouts. Good travel pouch included.",5,Genuine
+42,Fitness,"LOSE 30 POUNDS IN 3 DAYS WITHOUT DIETING BUY WEIGHT LOSS PILLS TODAY AT DIET-SCAM.BIZ",5,Fake
+43,Fitness,"Foam roller is way too stiff and painful for lower back recovery.",2,Genuine
+44,Fitness,"This superlative fitness equipment fosters unprecedented wellness and vitality.",5,Fake
+45,Office,"Ergonomic lumbar support alleviated my lower back pain after sitting 8 hours a day.",5,Genuine
+46,Office,"EARN 5000 DOLLARS A WEEK WORKING FROM HOME VISIT EASY-MONEY-JOBS.SITE RIGHT NOW",5,Fake
+47,Office,"Gas lift cylinder occasionally sinks by an inch when sitting down.",3,Genuine
+48,Office,"PERFECT OFFICE CHAIR AMAZING COMFORTABLE 100% RECOMMEND LOVE IT BUY NOW",5,Fake
+49,Automotive,"Dash cam video resolution is sharp enough to read license plates day and night.",5,Genuine
+50,Automotive,"GET FREE GAS CARD 200 DOLLARS CLICK LINK WWW.FREE-FUEL-REWARDS.INFO TODAY",5,Fake
+51,Automotive,"Suction mount fell off windshield during hot summer afternoon.",2,Genuine
+52,Automotive,"Seamlessly engineered automotive companion ensuring paramount road safety.",5,Fake
+53,Pets,"My cat took to this scratching post immediately. Heavy base prevents tipping over.",5,Genuine
+54,Pets,"FREE PUPPY GIVEAWAY CLAIM YOUR FREE PUREBRED DOG AT PETS-RESCUE-FRAUD.XYZ",5,Fake
+55,Pets,"Dog harness was too loose around the chest even on the tightest adjustment setting.",2,Genuine
+56,Pets,"EXCELLENT PET TOY WOW MY DOG LOVES IT BEST EVER BUY TODAY 5 STARS",5,Fake
+57,Smart Home,"Smart plug integrates smoothly with Home Assistant and responds to local network commands.",5,Genuine
+58,Smart Home,"FREE SMART HOME HUB CLAIM YOUR PROMO CODE AT SMART-GIVEAWAY.CC LIMITED OFFER",5,Fake
+59,Smart Home,"Wi-Fi disconnection happens once every two days, requires manual power cycle.",2,Genuine
+60,Smart Home,"A quintessential paradigm of residential automation and operational convenience.",5,Fake
