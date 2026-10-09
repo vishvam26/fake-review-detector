@@ -48,8 +48,31 @@
 
 [data-theme="light"] {
   /* Subtle light adaptation while keeping the cinematic video feel */
-  --bg-glass-card: rgba(255, 255, 255, 0.15);
-  --border-glass: rgba(255, 255, 255, 0.25);
+  --bg-glass-nav: rgba(255, 255, 255, 0.35);
+  --bg-glass-card: rgba(255, 255, 255, 0.28);
+  --bg-glass-card-hover: rgba(255, 255, 255, 0.38);
+  --bg-glass-input: rgba(255, 255, 255, 0.35);
+  --border-glass: rgba(255, 255, 255, 0.35);
+  --border-glass-light: rgba(255, 255, 255, 0.45);
+}
+
+/* Dark / light theme toggle button (navbar) */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-glass);
+  background: var(--bg-glass-card);
+  color: var(--text-white-80);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.theme-toggle-btn:hover {
+  background: var(--bg-glass-card-hover);
+  transform: scale(1.06);
 }
 
 html, body {

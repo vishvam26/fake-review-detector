@@ -1,5 +1,5 @@
 import { useState, useEffect, Suspense, lazy } from "react"
-import { ChevronDown, Menu, X, Globe, Sparkles, ArrowRight, ShieldCheck, Cpu, FileText, AlertCircle } from "lucide-react"
+import { ChevronDown, Menu, X, Globe, Sparkles, ArrowRight, ShieldCheck, Cpu, FileText, AlertCircle, Sun, Moon } from "lucide-react"
 import "./App.css"
 import API_URL from "./config"
 
@@ -23,6 +23,13 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [timeline, setTimeline] = useState("amazon")
   const [workspaceMode, setWorkspaceMode] = useState("single")
+  const [theme, setTheme] = useState("dark")
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme)
+  }, [theme])
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"))
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -144,6 +151,14 @@ export default function App() {
 
             {/* Right Action Button */}
             <div className="nav-right-actions">
+              <button
+                className="theme-toggle-btn"
+                onClick={toggleTheme}
+                aria-label="Toggle dark / light theme"
+                title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+              </button>
               <div className="nav-status-pill">
                 <span className="live-pulsing-dot" />
                 <span className="nav-status-text">SYSTEM ONLINE</span>
